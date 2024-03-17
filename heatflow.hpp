@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <map>
 
 class Heatflow{
 
@@ -7,13 +8,15 @@ class Heatflow{
 
     std::vector<float> rod2;
 
+    std::map<int,float> sources_sink;
+
     float k;
 
     int step;
 
     public:
 
-    Heatflow(float temp, int sections, float k );
+    Heatflow(float temp, int sections, float k, std::map<int, float> map);
 
     void tick();
 
@@ -22,5 +25,7 @@ class Heatflow{
     float getTemp(int x);
 
     int getSize();
+
+    void setSource(int source);
 
 };
