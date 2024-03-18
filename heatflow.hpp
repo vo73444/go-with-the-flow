@@ -23,9 +23,4 @@ class Heatflow{
     void prettyPrint();
 
     float getTemp(int x);
-
-    int getSize();
-
-    void setSource(int source);
-
 };

@@ -96,7 +96,3 @@ float Heatflow::getTemp(int x){
         return rod2[x];
     }
 }
-
-int Heatflow::getSize(){
-    return rod.size();
-}
