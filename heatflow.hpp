@@ -12,11 +12,17 @@ class Heatflow{
 
     float k;
 
+    float x;
+
+    float t;
+
     int step;
+
+    void switch_rod(std::vector<float> &current_rod, std::vector<float> &next_rod);
 
     public:
 
-    Heatflow(float temp, int sections, float k, std::map<int, float> map);
+    Heatflow(float temp, int sections, float k, float x, float t, std::map<int, float> map);
 
     void tick();
 

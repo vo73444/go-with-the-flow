@@ -10,7 +10,7 @@ int main(){
 
     sourcesAndSinks[1] = 100.0;
 
-    Heatflow h(10, 5, 0.1, sourcesAndSinks);
+    Heatflow h(10, 5, 0.1, 2, 3, sourcesAndSinks);
     cout << endl;
     h.prettyPrint();
 

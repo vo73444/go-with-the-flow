@@ -13,7 +13,7 @@ int main(){
 
     m1[5] = 100;
 
-    Heatflow h = Heatflow(10, 5, 0.1, m1);
+    Heatflow h = Heatflow(10, 5, 0.1, 1, 1, m1);
 
     h.tick();
 
