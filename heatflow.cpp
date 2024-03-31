@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Heatflow::Heatflow(float temp, int sections, float constant, map<int, float> m){
+Heatflow::Heatflow(float temp, int sections, float k, float x, float t, map<int, float> m){
 
     sources_sink = m;
     
@@ -24,44 +24,43 @@ Heatflow::Heatflow(float temp, int sections, float constant, map<int, float> m){
         rod2[itr->first] = itr->second;
     }
 
-    k = constant;
+    this->k = k;
+    this->x = x;
+    this->t = t;
 
     step = 1;
 }
 
-void Heatflow::tick(){
+void Heatflow::switch_rod(std::vector<float> &current_rod, std::vector<float> &next_rod){
     map<int,float>::iterator itr;
 
-    if(step % 2 != 0){
-        for(int i = 1; i < rod.size() - 1; i++){
+    for(int i = 1; i < rod.size() - 1; i++){
             for(itr = sources_sink.begin(); itr != sources_sink.end(); itr++){
                 if(itr->first == i){
-                    rod2[i] = itr->second;
+                    next_rod[i] = itr->second;
                     break;
                 }
                 else{
-                    rod2[i] = rod[i] + (k * (rod[i+1] - (2*rod[i]) + rod[i-1]));
+                    next_rod[i] = current_rod[i] + ((k * t) * ((current_rod[i+1] - (2 * current_rod[i]) + current_rod[i-1]) / pow(x, 2)));
                 }
             }
-            
-        }
+
+    }
+}
+
+void Heatflow::tick(){
+
+
+    if(step % 2 != 0){
+        
+        switch_rod(rod, rod2);
 
         step += 1;
     }
 
     else{
-        for(int i = 1; i < rod.size() - 1; i++){
-            for(itr = sources_sink.begin(); itr != sources_sink.end(); itr++){
-                if(itr->first == i){
-                    rod[i] = itr->second;
-                    break;
-                }
-                else{
-                    rod[i] = rod2[i] + (k * (rod2[i+1] - (2*rod2[i]) + rod2[i-1]));
-                }
-            }
-            
-        }
+        
+        switch_rod(rod2, rod);
 
         step += 1;
     }
